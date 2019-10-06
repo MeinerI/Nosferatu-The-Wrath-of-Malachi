@@ -22,9 +22,9 @@ sealed class mot2obj
 						using (BinaryReader br = new BinaryReader(File.Open(motName, FileMode.Open)))
 						{
 
-						//	открыли *.x на запись 
+						//	открыли *.txt на запись 
 
-								using (StreamWriter sw = new StreamWriter(Path.GetDirectoryName(motName) + "/" + Path.GetFileNameWithoutExtension(motName) + ".x"))
+								using (StreamWriter sw = new StreamWriter(Path.GetDirectoryName(motName) + "/" + Path.GetFileNameWithoutExtension(motName) + ".txt"))
 								{
 
 										br.ReadSingle();	//	первые 4 обычно равны 01 00 00 00
@@ -98,7 +98,7 @@ sealed class mot2obj
 
 										}		//	проход по сабмешам
 
-								}		//	using StreamWriter	//	закрываем *.x файл на запись  //	sw.Close();  //		sw.Dispose();
+								}		//	using StreamWriter	//	закрываем *.txt файл на запись  //	sw.Close();  //		sw.Dispose();
 
 						}		//	using BinaryReader	//	закрываем файл на чтение
 
