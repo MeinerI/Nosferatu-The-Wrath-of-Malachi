@@ -2,7 +2,7 @@
 	using System;using System.IO;using System.Linq;using System.Text;using System.Collections;using System.Collections.Generic;
 //жжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжж
 
-sealed class fxm2obj
+sealed class fxm2x
 {
 		static string extTextureFileName;		//	расширение текстуры
 
@@ -50,11 +50,7 @@ sealed class fxm2obj
 
 										for (int temp_s = 0; temp_s < 11; temp_s++ ) br.ReadSingle();		//	11 по 4
 
-								//	количество саб-мешей
-
-										float submesh__hex = br.ReadSingle();
-										byte[] byteArray = BitConverter.GetBytes(submesh__hex);
-										int submesh__count = BitConverter.ToInt32(byteArray, 0);
+										int submesh__count = br.ReadInt32();	//	количество саб-мешей
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -100,9 +96,7 @@ Frame DXCC_ROOT {
 
 {										//	читаем количество букв в имени файла текстуры 
 
-												float name__lengtf = br.ReadSingle();
-												byteArray = BitConverter.GetBytes(name__lengtf);
-												int name__length = BitConverter.ToInt32 (byteArray, 0);
+												int name__length = br.ReadInt32();
 
 										//	читаем имя файла текстуры 
 
@@ -134,18 +128,10 @@ Frame DXCC_ROOT {
 {										//	после имени пропускаем 24 байт "пустой" информации
 			
 												for (int temp_s = 0; temp_s < 6; temp_s++ ) br.ReadSingle();	//	6 по 4
-			
-										//	количество граней
-			
-												float faces__hex = br.ReadSingle();
-												byteArray = BitConverter.GetBytes(faces__hex);
-												faces__count = BitConverter.ToInt32(byteArray, 0);
-			
-										//	количество вершин
-			
-												float vertex_hex = br.ReadSingle();
-												byteArray = BitConverter.GetBytes(vertex_hex);
-												vertex_count = BitConverter.ToInt32(byteArray, 0);
+
+												faces__count = br.ReadInt32();	//	количество граней
+
+												vertex_count = br.ReadInt32();	//	количество вершин
 }
 
 	/////////////////////////////////////////////////////////////////////////////////////////
