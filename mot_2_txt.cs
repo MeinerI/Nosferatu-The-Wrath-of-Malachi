@@ -27,7 +27,7 @@ sealed class mot2obj
 								using (StreamWriter sw = new StreamWriter(Path.GetDirectoryName(motName) + "/" + Path.GetFileNameWithoutExtension(motName) + ".txt"))
 								{
 										PrintHexString(br, sw, 7);
-										int roots__count = BitConverter.ToInt32(BitConverter.GetBytes(br.ReadSingle()), 0);
+										int roots__count = br.ReadInt32();
 										sw.WriteLine("количество узлов = " + roots__count);
 										PrintHexString(br, sw, 1);
 
@@ -38,14 +38,14 @@ sealed class mot2obj
 										for (int root = 0; root < roots__count ; root++)
 										{
 												sw.WriteLine("\n========================\n" + "имя узла = " 
-												+ ReadString(br, HexFloat2Int32(br.ReadSingle())) + "\n");
+												+ ReadString(br, br.ReadInt32()) + "\n");
 
 										//	каждую строку пишем в файл
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-												int ts = HexFloat2Int32(br.ReadSingle());		//	02 00 00 00 или 06 00 00 00
-												int zero = HexFloat2Int32(br.ReadSingle());	//	00 00 00 00
+												int ts = br.ReadInt32();		//	02 00 00 00 или 06 00 00 00
+												int zero = br.ReadInt32();	//	00 00 00 00
 
 												int count = 0;
 
@@ -76,8 +76,8 @@ sealed class mot2obj
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-												ts = HexFloat2Int32(br.ReadSingle());		//	02 или 03 или 06
-												zero = HexFloat2Int32(br.ReadSingle());	//	00 00 00 00
+												ts = br.ReadInt32();		//	02 или 03 или 06
+												zero = br.ReadInt32();	//	00 00 00 00
 
 												if (ts == 2 || ts == 3 || ts == 6)
 												{
@@ -110,8 +110,8 @@ sealed class mot2obj
 
 										//	end:
 
-												ts = HexFloat2Int32(br.ReadSingle());		//	02 00 00 00
-												zero = HexFloat2Int32(br.ReadSingle());	//	00 00 00 00
+												ts = br.ReadInt32();		//	02 00 00 00
+												zero = br.ReadInt32();	//	00 00 00 00
 
 												if (ts == 2)
 												{
@@ -160,16 +160,7 @@ sealed class mot2obj
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-//	HexFloat2Int32(br.ReadSingle())
-
-		static int HexFloat2Int32(float float_value)
-		{
-				return BitConverter.ToInt32(BitConverter.GetBytes(float_value), 0);
-		}
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
-//	sw.WriteLine(ReadString(br, HexFloat2Int32(br.ReadSingle())));
+//	sw.WriteLine(ReadString(br, br.ReadInt32()));
 
 		static string ReadString(BinaryReader br, int nbyte)
 		{
