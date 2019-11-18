@@ -1,8 +1,8 @@
 //жжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжж
-	using System;using System.IO;using System.Linq;using System.Text;using System.Collections;using System.Collections.Generic;
+using System;using System.IO;using System.Linq;using System.Text;using System.Collections;using System.Collections.Generic;
 //жжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжж
 
-sealed class fxf2obj
+sealed class fxf2txt
 {
 		static void Main()	
 		{
@@ -36,21 +36,15 @@ sealed class fxf2obj
 
 //////////////////	какой то первый блок состоит из 8 "пронумерованных" блоков по 17,26,12,1,15,1,29,1 "папок"
 
-										float big_block_h = br.ReadSingle();	//	08 00 00 00		//	8  блоков
-										byte[] byteArray = BitConverter.GetBytes(big_block_h);
-										int big_block_count = BitConverter.ToInt32 (byteArray, 0);
+										int big_block_count = br.ReadInt32();
 
 										for (int big_block = 0; big_block < big_block_count ; big_block++)
 										{
-												float count_h = br.ReadSingle();		//	читаем количество под-блоков 
-												byteArray = BitConverter.GetBytes(count_h);
-												int count = BitConverter.ToInt32 (byteArray, 0);
+												int count = br.ReadInt32();	//	читаем количество под-блоков 
 
 												for (int root = 0; root < count ; root++)	//	читаем "под-блоки"
 												{
-														float lengtf = br.ReadSingle();	//	читаем длину имени блока
-														byteArray = BitConverter.GetBytes(lengtf);
-														int length = BitConverter.ToInt32 (byteArray, 0);
+														int length = br.ReadInt32();	//	читаем длину имени блока
 
 														byte[] name_h = new byte[length];		//	читаем название блока
 														br.Read(name_h, 0, length);
@@ -125,17 +119,7 @@ sealed class fxf2obj
 
 //////
 
-//	HexFloat2Int32(br.ReadSingle())
-
-		static int HexFloat2Int32(float float_value)
-		{
-				byte[] b_ar = BitConverter.GetBytes(float_value);
-				return BitConverter.ToInt32 (b_ar, 0);
-		}
-
-//////
-
-//	sw.WriteLine(ReadString(br, HexFloat2Int32(br.ReadSingle())));
+//	sw.WriteLine(ReadString(br, br.ReadInt32()));
 
 		static string ReadString(BinaryReader br, int nbyte)
 		{
@@ -150,9 +134,9 @@ sealed class fxf2obj
 
 		static int ReadMaterial(BinaryReader br, StreamWriter sw)
 		{
-				int n_block = HexFloat2Int32(br.ReadSingle());
+				int n_block = br.ReadInt32();
 				sw.WriteLine("№ блока = " + n_block + "\n");				br.ReadSingle();	//	00 00 00 00 
-				sw.WriteLine(ReadString(br, HexFloat2Int32(br.ReadSingle())) + "\n");
+				sw.WriteLine(ReadString(br, br.ReadInt32()) + "\n");
 
 				for (int zero = 0; zero < 37; zero++)
 				sw.Write(BitConverter.ToString(BitConverter.GetBytes(br.ReadSingle())) + "\t\t\t"); 
@@ -170,11 +154,11 @@ sealed class fxf2obj
 
 		static int ReadReference(BinaryReader br, StreamWriter sw, int count)
 		{
-				int n_block = HexFloat2Int32(br.ReadSingle());
+				int n_block = br.ReadInt32();
 				sw.WriteLine("№ блока = " + n_block + "\n");				br.ReadSingle();	//	00 00 00 00 
-				sw.WriteLine(ReadString(br, HexFloat2Int32(br.ReadSingle())));
-				sw.WriteLine(ReadString(br, HexFloat2Int32(br.ReadSingle())));
-				sw.WriteLine(ReadString(br, HexFloat2Int32(br.ReadSingle())));					sw.WriteLine();
+				sw.WriteLine(ReadString(br, br.ReadInt32()));
+				sw.WriteLine(ReadString(br, br.ReadInt32()));
+				sw.WriteLine(ReadString(br, br.ReadInt32()));					sw.WriteLine();
 
 				for (int zero = 0; zero < count ; zero++) 
 				sw.Write(BitConverter.ToString(BitConverter.GetBytes(br.ReadSingle())) + "\t\t\t"); 
