@@ -16,12 +16,15 @@ sealed class fxm2x
 				int vertex_count;			//	количество вершин
 				int faces__count;			//	количество граней
 
-				string textureFileName;		//	имя текстуры
+				string materialName;	//	имя материала
 
 				List<string> face_list = new List<string>();
 				List<string> vert_list = new List<string>();
 				List<string> norm_list = new List<string>();
 				List<string> uvst_list = new List<string>();
+
+		//	точки вместо запятых	// хотя для obj это не важно вроде бы	// как и табы вместо пробелов
+				System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
 		//	ищем все fmx файлы в папках и подпапках
 
@@ -56,30 +59,6 @@ sealed class fxm2x
 
 sw.WriteLine(
 @"xof 0303txt 0032
-
-Frame DXCC_ROOT {
-  FrameTransformMatrix {
-     1.0000000000000000, 0.0000000000000000, 0.0000000000000000, 0.0000000000000000,
-    0.0000000000000000, 1.0000000000000000, 0.0000000000000000, 0.0000000000000000,
-    0.0000000000000000, 0.0000000000000000, 1.0000000000000000, 0.0000000000000000,
-    0.0000000000000000, 0.0000000000000000, 0.0000000000000000, 1.0000000000000000;;
-  }
-
-  Frame RootNode {
-    FrameTransformMatrix {
-       1.0000000000000000, 0.0000000000000000, 0.0000000000000000, 0.0000000000000000,
-      0.0000000000000000, 1.0000000000000000, 0.0000000000000000, 0.0000000000000000,
-      0.0000000000000000, 0.0000000000000000, 1.0000000000000000, 0.0000000000000000,
-      0.0000000000000000, 0.0000000000000000, 0.0000000000000000, 1.0000000000000000;;
-    }
-
-    Frame Box01 {
-      FrameTransformMatrix {
-         1.0000000000000000, 0.0000000000000000, 0.0000000000000000, 0.0000000000000000,
-        0.0000000000000000, 1.0000000000000000, 0.0000000000000000, 0.0000000000000000,
-        0.0000000000000000, 0.0000000000000000, 1.0000000000000000, 0.0000000000000000,
-        0.0000000000000000, 0.0000000000000000, -1.0000000000000000, 1.0000000000000000;;
-      }
 ");
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -99,10 +78,11 @@ Frame DXCC_ROOT {
 												int name__length = br.ReadInt32();
 
 										//	читаем имя файла текстуры 
+										//	на самом деле это имя метериала, который хранится в файле FXLibrary.fxf
 
 												byte[] textureFileNameHex = new byte[name__length];
 												br.Read(textureFileNameHex, 0, name__length);
-												textureFileName = System.Text.Encoding.Default.GetString(textureFileNameHex);
+												materialName = System.Text.Encoding.Default.GetString(textureFileNameHex);
 }
 
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -114,7 +94,7 @@ Frame DXCC_ROOT {
 
 												for (int i = 0; i < texture_files.Count; i++)
 												{
-														if (textureFileName == Path.GetFileNameWithoutExtension(texture_files[i])) 
+														if (materialName == Path.GetFileNameWithoutExtension(texture_files[i])) 
 														{
 																extTextureFileName = Path.GetExtension(texture_files[i]);
 																break;
@@ -219,7 +199,9 @@ Material {
 		1.000000;
 		0.000000; 0.000000; 0.000000;;
 		0.000000; 0.000000; 0.000000;;
-		TextureFilename { """ + textureFileName + extTextureFileName + @"""" + @"; }
+		TextureFilename { 
+		""" + materialName + extTextureFileName + @"""" + @";
+		}
 	}
 }
 ");
@@ -268,9 +250,8 @@ sw.WriteLine("}");			//	закрыли MeshTextureCoords
 
 sw.WriteLine(@"
 }
-}
-}
-}");
+// zxc разделение мешей и отчистка списков
+");
 
 }
 
