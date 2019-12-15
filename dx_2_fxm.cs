@@ -4,7 +4,7 @@
 	using System.Text;using System.Text.RegularExpressions;
 //жжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжжж
 
-sealed class x2fxm
+sealed class dx_2_fxm
 {
 
 		static string[] readText; // хранит все строки из *.x файла // видно из всего кода
