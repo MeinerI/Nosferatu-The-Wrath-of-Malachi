@@ -96,11 +96,8 @@ seq:
   - id: material5
     type: material_block
 
-  - id: texture5
-    type: texture_block
-
-  - id: material6
-    type: material_block
+  - id: texture_plus_material_block0
+    type: texture_plus_material_block
 
   - id: texture6
     type: texture_block
@@ -132,7 +129,34 @@ seq:
   - id: mesh1
     type: fxm_mesh_block
 
-#	...
+  - id: textures_plus_materials2
+    type: texture_plus_material_block
+    repeat: expr
+    repeat-expr: 23
+
+  - id: mesh2
+    type: fxm_mesh_block
+
+  - id: textures_plus_materials3
+    type: texture_plus_material_block
+
+  - id: textures_plus_materials4
+    type: texture_plus_material_block
+
+  - id: mesh3
+    type: fxm_mesh_block
+  
+  - id: textures_plus_materials5
+    type: texture_plus_material_block
+
+  - id: mesh4
+    type: fxm_mesh_block
+
+  - id: mesh5
+    type: fxm_mesh_block
+
+  - id: motion10
+    type: mot_block
 
 
 
@@ -274,7 +298,13 @@ types:
      - id: hz
        type: u4
        repeat: expr
-       repeat-expr: 9
+       repeat-expr: 6
+     - id: height
+       type: u4
+     - id: width
+       type: u4
+     - id: hz3
+       type: u4
 
 #########################
 
