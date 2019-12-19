@@ -1,4 +1,5 @@
 # для FXLibrary.fxf файла
+#########################
 
 meta:
   id: fxf
@@ -35,133 +36,121 @@ seq:
 
 #########################
 
-  - id: hz
-    type: u4
-
   - id: block_ref_sound
     type: ref_sound_block
-
   - id: block_ref_texture
     type: ref_texture_block
-
   - id: block_ref_mesh
     type: ref_mesh_block
-
   - id: block_ref_material
-    type: material_block
+    type: ref_mat_block
 
-  - id: material1
-    type: material_block
-
-  - id: texture1
-    type: texture_block
-
-  - id: texture2
-    type: texture_block
-
-  - id: material2
-    type: material_block
-
-  - id: material3
-    type: material_block
-
-  - id: textures_plus_materials
-    type: texture_plus_material_block
+  - id: all
+    type: all
     repeat: expr
-    repeat-expr: 41
+    repeat-expr: 646
 
-  - id: motions
-    type: mot_block
+  - id: material_block_170
+    size: 170
+
+  - id: all2
+    type: all
     repeat: expr
-    repeat-expr: 7
+    repeat-expr: 1624
+    # где то рядом с 1225 первый font
 
-  - id: texture3
-    type: texture_block
+  - id: anb_hz
+    size: 226
 
-  - id: motion1
-    type: mot_block
-
-  - id: material4
-    type: material_block
-
-  - id: motion2
-    type: mot_block
-
-  - id: texture4
-    type: texture_block
-
-  - id: motion3
-    type: mot_block
-
-  - id: material5
-    type: material_block
-
-  - id: texture_plus_material_block0
-    type: texture_plus_material_block
-
-  - id: texture6
-    type: texture_block
-
-  - id: wav_block1
-    type: wav_block
-
-  - id: wav_block2
-    type: wav_block
-
-  - id: wav_block3
-    type: wav_block
-
-  - id: texture7
-    type: texture_block
-
-  - id: wav_block6
-    type: wav_block
-
-  - id: wav_block7
-    type: wav_block
-
-  - id: texture8
-    type: texture_block
-
-  - id: motion9
-    type: mot_block
-
-  - id: mesh1
-    type: fxm_mesh_block
-
-  - id: textures_plus_materials2
-    type: texture_plus_material_block
+  - id: all3
+    type: all
     repeat: expr
-    repeat-expr: 23
+    repeat-expr: 100
 
-  - id: mesh2
-    type: fxm_mesh_block
+  - id: texture_hz
+    size: 300
 
-  - id: textures_plus_materials3
-    type: texture_plus_material_block
+  - id: all4
+    type: all
+    repeat: expr
+    repeat-expr: 8
 
-  - id: textures_plus_materials4
-    type: texture_plus_material_block
+  - id: material_block_170_2
+    size: 170
 
-  - id: mesh3
-    type: fxm_mesh_block
+  - id: all5
+    type: all
+    repeat: expr
+    repeat-expr: 43
+
+  - id: material_block_170_3
+    size: 168
+
+  - id: all6
+    type: all
+    repeat: expr
+    repeat-expr: 62
+
+  - id: material_block_170_4
+    size: 176
+
+  - id: all7
+    type: all
+    repeat: expr
+    repeat-expr: 283
   
-  - id: textures_plus_materials5
-    type: texture_plus_material_block
+  - id: hz00000000
+    size: 4
 
-  - id: mesh4
-    type: fxm_mesh_block
+  - id: all8
+    type: all
+    repeat: expr
+    repeat-expr: 712
 
-  - id: mesh5
-    type: fxm_mesh_block
+  - id: hz_0000_0000_0
+    size: 4
 
-  - id: motion10
-    type: mot_block
+  - id: all9
+    type: all
+    repeat: expr
+    repeat-expr: 157
 
+  - id: font_hz
+    size: 4153
 
+  - id: all10
+    type: all
+    repeat: expr
+    repeat-expr: 32
+
+  - id: hz5
+    size: 4
+
+  - id: all11
+    type: all
+    repeat: expr
+    repeat-expr: 32
 
 #########################
 types:
+#########################
+
+  all:
+    seq:
+      - id: block_type
+        type: u4
+        enum: block_type
+      - id: block
+        type: 
+          switch-on: block_type
+          cases:
+            'block_type::texture':    texture_block   # 0 mpg тоже? 
+            'block_type::fxm_or_anb': mesh_block      # 1
+            'block_type::wav':        wav_block       # 2
+            'block_type::material':   material_block  # 4
+            'block_type::motion':     mot_block       # 6
+            'block_type::font':       font_block      # 7
+
 #########################
 
   big_folder_block:
@@ -184,8 +173,6 @@ types:
         size: len
         encoding: ASCII
 
-#########################
-#########################
 #########################
 
   str_len:
@@ -211,42 +198,61 @@ types:
         repeat-expr: 3
 
 #########################
-#########################
-#########################
 
   ref_mesh_block: 
     seq:
+      - id: block_type
+        type: u4
       - id: name
         type: block_3_name
       - id: hz
-        type: u4
+        type: f4
         repeat: expr
-        repeat-expr: 22
+        repeat-expr: 21
 
 #########################
 
   ref_texture_block:
     seq:
+     - id: block_type
+       type: u4
      - id: name
        type: block_3_name
      - id: hz
        type: u4
        repeat: expr
-       repeat-expr: 9
+       repeat-expr: 8
 
 #########################
 
   ref_sound_block:
     seq:
+      - id: block_type
+        type: u4
       - id: name
         type: block_3_name
       - id: hz
         type: u4
         repeat: expr
-        repeat-expr: 6
+        repeat-expr: 5
 
 #########################
-  
+
+  ref_mat_block:
+    seq:
+      - id: block_type
+        type: u4
+      - id: number
+        type: u4
+      - id: zero
+        size: 4
+      - id: name
+        type: str_len
+      - id: hz
+        size: 310
+
+#########################
+
   material_block: # ref_37
     seq:
       - id: number
@@ -287,7 +293,7 @@ types:
       - id: floats4
         type: u4
         repeat: expr
-        repeat-expr: 11
+        repeat-expr: 10
 
 #########################
 
@@ -303,8 +309,6 @@ types:
        type: u4
      - id: width
        type: u4
-     - id: hz3
-       type: u4
 
 #########################
 
@@ -315,7 +319,7 @@ types:
       - id: hz
         type: u4
         repeat: expr
-        repeat-expr: 4
+        repeat-expr: 3
 
 #########################
 
@@ -335,11 +339,11 @@ types:
       - id: hz
         type: u4
         repeat: expr
-        repeat-expr: 6
+        repeat-expr: 5
 
 #########################
 
-  fxm_mesh_block: 
+  mesh_block: # fxm_or_anb
     seq:
       - id: name
         type: block_3_name
@@ -362,8 +366,23 @@ types:
         type: u4
       - id: hz18
         type: u4
-      - id: hz19
+        
+#########################
+
+  font_block:
+    seq:
+      - id: number
         type: u4
+      - id: zero
+        size: 4
+      - id: block_name
+        type: str_len
+      - id: twelve_12_zero
+        size: 12
+      - id: font_name
+        type: str_len
+      - id: body
+        size: 4111
 
 #########################
 
@@ -409,3 +428,12 @@ types:
         type: u4
 
 #########################
+
+enums:
+  block_type:
+    0: texture # mpg
+    1: fxm_or_anb
+    2: wav
+    4: material
+    6: motion
+    7: font
