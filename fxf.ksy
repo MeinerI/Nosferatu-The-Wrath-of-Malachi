@@ -45,13 +45,13 @@ seq:
   - id: block_ref_material
     type: ref_mat_block
 
-  - id: all
+  - id: all1
     type: all
     repeat: expr
-    repeat-expr: 646
+    repeat-expr: 647
 
-  - id: material_block_170
-    size: 170
+  - id: hzz1
+    size: 4
 
   - id: all2
     type: all
@@ -59,47 +59,47 @@ seq:
     repeat-expr: 1624
     # где то рядом с 1225 первый font
 
-  - id: anb_hz
-    size: 226
+  - id: hzz2
+    size: 4
 
   - id: all3
     type: all
     repeat: expr
-    repeat-expr: 100
+    repeat-expr: 102
 
-  - id: texture_hz
-    size: 300
+  - id: hzz3
+    size: 4
 
   - id: all4
     type: all
     repeat: expr
-    repeat-expr: 8
-
-  - id: material_block_170_2
+    repeat-expr: 9
+  
+  - id: hzz3_mat_4
     size: 170
 
   - id: all5
     type: all
     repeat: expr
     repeat-expr: 43
-
-  - id: material_block_170_3
+    
+  - id: hzz3_mat_5
     size: 168
 
   - id: all6
     type: all
     repeat: expr
-    repeat-expr: 62
+    repeat-expr: 63
 
-  - id: material_block_170_4
-    size: 176
+  - id: hzz6
+    size: 4
 
   - id: all7
     type: all
     repeat: expr
     repeat-expr: 283
   
-  - id: hz00000000
+  - id: hzz7
     size: 4
 
   - id: all8
@@ -107,7 +107,7 @@ seq:
     repeat: expr
     repeat-expr: 712
 
-  - id: hz_0000_0000_0
+  - id: hzz8
     size: 4
 
   - id: all9
@@ -115,7 +115,7 @@ seq:
     repeat: expr
     repeat-expr: 157
 
-  - id: font_hz
+  - id: font9
     size: 4153
 
   - id: all10
@@ -123,7 +123,7 @@ seq:
     repeat: expr
     repeat-expr: 32
 
-  - id: hz5
+  - id: hz10
     size: 4
 
   - id: all11
@@ -431,7 +431,7 @@ types:
 
 enums:
   block_type:
-    0: texture # mpg
+    0: texture
     1: fxm_or_anb
     2: wav
     4: material
