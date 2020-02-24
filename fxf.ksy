@@ -364,7 +364,7 @@ types:
 
       - id: hz17
         type: u4
-      - id: hz18
+      - id: first_number_in_anb_file
         type: u4
         
 #########################
