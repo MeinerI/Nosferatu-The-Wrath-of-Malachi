@@ -7,19 +7,19 @@
 5 - число граней
 =================================================
 
-1 блок вершин float float float float float float 
-								x			y			z		x-vn	y-vn	z-vn
+1 блок вершин	float	float	float	float	float	float 
+		x	y	z	x-vn	y-vn	z-vn
 
 блок граней 	ushort ushort ushort 
-								v1		 v2			v3
+		v1	v2	v3
 
-блок "UVs"		float float 
-								u			v
+блок "UVs"	float	float 
+		u	v
 
-опять?грани		ushort ushort ushort 
-								vt1		 vt2		vt3
+опять?грани	ushort	ushort	ushort 
+		vt1	vt2	vt3
 =================================================
 
 потом идут следущие блоки вершин сабмешей 
-в формате float float float float float float 
-						x			y			z		x-vn	y-vn	z-vn
+в формате	float	float	float	float	float	float 
+		x	y	z	x-vn	y-vn	z-vn
