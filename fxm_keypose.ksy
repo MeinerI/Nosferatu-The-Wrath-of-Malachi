@@ -13,7 +13,7 @@ seq:
   - id: joint_count
     type: u4
 
-  - id: zero1
+  - id: zero8
     size: 8
 
   - id: joints
@@ -82,10 +82,8 @@ types:
       - id: matrix4x4
         type: matrix4x4
 
-      - id: delimetr1
-        type: u4
-      - id: dem2
-        type: u4
+      - id: zero8
+        size: 8
 
   matrix4x4:
     seq:
