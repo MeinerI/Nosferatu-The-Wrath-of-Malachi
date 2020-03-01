@@ -33,6 +33,7 @@ types:
 
   str_len:
     seq:
+
     - id: len
       type: u4
     - id: name
