@@ -6,8 +6,8 @@ sealed class fxm_2_dx
 {
 		static void Main()	
 		{
-				int v1, v2, v3;			//	грани
-				float x, y, z;			//	координаты точки
+				int v1, v2, v3;				  //	грани
+				float x, y, z;				  //	координаты точки
 				float w1, w2, w3, w4;		//	веса 
 				float c1, c2, c3, c4;		//	индексы/цвет argb/rgba
 
@@ -17,18 +17,18 @@ sealed class fxm_2_dx
 				int bc13, bc14, bc15, bc16;
 
 				float vn1, vn2, vn3;	//	нормали
-				float u, v;		//	развёртка
+				float u, v;						//	развёртка
 
-				int vertex_count;	//	количество вершин
-				int faces__count;	//	количество граней
+				int vertex_count;			//	количество вершин
+				int faces__count;			//	количество граней
 
 				List<string> face_list = new List<string>();
 				List<string> vert_list = new List<string>();
 				List<string> norm_list = new List<string>();
 				List<string> uvst_list = new List<string>();
 				
-			//	List<VertexTypePNT> vertex_PNT_List = new List<VertexTypePNT>();
-			//	List<VertexTypePWCNT> vertex_PWCNT_List = new List<VertexTypePWCNT>();
+				List<VertexTypePNT> vertex_PNT_List = new List<VertexTypePNT>();
+				List<VertexTypePWCNT> vertex_PWCNT_List = new List<VertexTypePWCNT>();
 
 		//	точки вместо запятых	// хотя для obj это не важно вроде бы	// как и табы вместо пробелов
 				System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
@@ -206,7 +206,7 @@ sw.WriteLine(
 														u = br.ReadSingle();
 														v = br.ReadSingle();
 
-													//	vertex_PNT_List.Add(new VertexTypePNT(new Vector3 (x, y, z), new Vector3 (vn1, vn2, vn3), new Vector2 (u, v)));
+														vertex_PNT_List.Add(new VertexTypePNT(new Vector3 (x, y, z), new Vector3 (vn1, vn2, vn3), new Vector2 (u, v)));
 														vert_list.Add(x + ";" + y + ";" + z + ";");
 														uvst_list.Add(u + ";" + v + ";");
 														norm_list.Add(vn1 + ";" + vn2 + ";" + vn3 + ";");
@@ -320,9 +320,10 @@ sw.WriteLine("MeshVertexColors {");
 sw.WriteLine();
 sw.WriteLine(vertex_count + ";");
 sw.WriteLine();
-*/
 
 sw.WriteLine();
+
+*/
 
 //	считываем информацию по каждой вершине v w c vn vt
 
@@ -331,119 +332,69 @@ c1 = c2 = c3 = c4 = 0.0f; // а то ругается :)
 
 for ( int i = 0 ; i < vertex_count ; i++ )
 {
-		x = br.ReadSingle();
-		y = br.ReadSingle();
-		z = br.ReadSingle();
+		x = br.ReadSingle();	y = br.ReadSingle();	z = br.ReadSingle();
 
-		byte b1 = br.ReadByte();		
+		byte weightCount = br.ReadByte();		
 		byte b2 = br.ReadByte();		
 		byte b3 = br.ReadByte();		
 		byte b4 = br.ReadByte();		
 
-		if ( b1 == 0 )
+		if ( weightCount == 0 )
 		{
-				w1 = br.ReadSingle();		
+				w1 = br.ReadSingle(); // 1 вес // 00 00 80 3F или FF FF 7F 3F 
 
-				bc1	= br.ReadByte();		
-				bc2	= br.ReadByte();		
-				bc3	= br.ReadByte();		
-				bc4	= br.ReadByte();		
-					
-				bc5	= br.ReadByte();		
-				bc6	= br.ReadByte();		
-				bc7	= br.ReadByte();		
-				bc8	= br.ReadByte();		
-					
-				bc9	= br.ReadByte();	
-				bc10	= br.ReadByte();	
-				bc11	= br.ReadByte();	
-				bc12	= br.ReadByte();	
-					
-				bc13	= br.ReadByte();	
-				bc14	= br.ReadByte();	
-				bc15	= br.ReadByte();	
-				bc16	= br.ReadByte();	
+				bc1	= br.ReadByte();	bc2	= br.ReadByte();	bc3	= br.ReadByte();	bc4	= br.ReadByte();		
+				bc5	= br.ReadByte();	bc6	= br.ReadByte();	bc7	= br.ReadByte();	bc8	= br.ReadByte();		
+				bc9	= br.ReadByte();	bc10= br.ReadByte();	bc11= br.ReadByte();	bc12	= br.ReadByte();	
+				bc13= br.ReadByte();	bc14= br.ReadByte();	bc15= br.ReadByte();	bc16	= br.ReadByte();	
 				
-				c1 = bc1;
-				c2 = bc5;
-				c3 = bc9;
-				c4 = bc13;
+				c1 = bc13; // 1 индекс
 		}
 
-		if ( b1 == 2 )
+		if ( weightCount == 2 )
 		{
 				w1 = br.ReadSingle();		
 				w2 = br.ReadSingle();		
 				
-				bc1	= br.ReadByte();		
-				bc2	= br.ReadByte();		
-				bc3	= br.ReadByte();		
-				bc4	= br.ReadByte();		
-					
-				bc5	= br.ReadByte();		
-				bc6	= br.ReadByte();		
-				bc7	= br.ReadByte();		
-				bc8	= br.ReadByte();		
-					
-				bc9	= br.ReadByte();	
-				bc10	= br.ReadByte();	
-				bc11	= br.ReadByte();	
-				bc12	= br.ReadByte();	
-				
-				c1 = bc1;
-				c2 = bc5;
-				c3 = bc9;
-				c4 = bc10;
+				bc1	= br.ReadByte();	bc2	= br.ReadByte();	bc3	= br.ReadByte();	bc4	= br.ReadByte();		
+				bc5	= br.ReadByte();	bc6	= br.ReadByte();	bc7	= br.ReadByte();	bc8	= br.ReadByte();		
+				bc9	= br.ReadByte();	bc10= br.ReadByte();	bc11= br.ReadByte();	bc12= br.ReadByte();	
+
+				c1 = bc9 ;						 
+				c2 = bc10;
 		}
 
-		if ( b1 == 3 )
+		if ( weightCount == 3 )
 		{
-				w1 = br.ReadSingle();		
-				w2 = br.ReadSingle();		
+				w1 = br.ReadSingle();	
+				w2 = br.ReadSingle();	
 				w3 = br.ReadSingle();		
 
-				bc1 = br.ReadByte();		
-				bc2 = br.ReadByte();		
-				bc3 = br.ReadByte();		
-				bc4 = br.ReadByte();		
-					
-				bc5 = br.ReadByte();		
-				bc6 = br.ReadByte();		
-				bc7 = br.ReadByte();		
-				bc8 = br.ReadByte();		
+				bc1	= br.ReadByte();	bc2	= br.ReadByte();	bc3	= br.ReadByte();	bc4	= br.ReadByte();		
+				bc5	= br.ReadByte();	bc6	= br.ReadByte();	bc7	= br.ReadByte();	bc8	= br.ReadByte();		
 				
-				c1 = bc1;
-				c2 = bc5;
-				c3 = bc6;
-				c4 = bc7;
+				c1 = bc5;	
+				c2 = bc6;	
+				c3 = bc7;
 		}
 
-		if ( b1 == 4 )
+		if ( weightCount == 4 )
 		{
-				w1 = br.ReadSingle();		
-				w2 = br.ReadSingle();		
-				w3 = br.ReadSingle();		
+				w1 = br.ReadSingle(); 	
+				w2 = br.ReadSingle();	 
+				w3 = br.ReadSingle();	 
 				w4 = br.ReadSingle();		
 
-				bc1 = br.ReadByte();		
-				bc2 = br.ReadByte();		
-				bc3 = br.ReadByte();		
-				bc4 = br.ReadByte();		
-				
-				c1 = bc1;
-				c2 = bc2;
-				c3 = bc3;
-				c4 = bc4;
+				c1 = br.ReadByte(); 								 
+				c2 = br.ReadByte();							 
+				c3 = br.ReadByte();							 
+				c4 = br.ReadByte();
 		}
 
-		vn1 = br.ReadSingle();
-		vn2 = br.ReadSingle();
-		vn3 = br.ReadSingle();
+		vn1 = br.ReadSingle();		vn2 = br.ReadSingle();		vn3 = br.ReadSingle();
 
-		u = br.ReadSingle();
-		v = br.ReadSingle();
+		u = br.ReadSingle();		v = br.ReadSingle();
 
-/*
 		vertex_PWCNT_List.Add
 		(
 			new VertexTypePWCNT
@@ -456,16 +407,13 @@ for ( int i = 0 ; i < vertex_count ; i++ )
 			)
 		);
 
-if (i < vertex_count-1)
-sw.WriteLine( i + ";" + c1 + ";" + c2 + ";" + c3 + ";" + c4 + ";;," );
-*/
+// if (i < vertex_count-1) sw.WriteLine( i + ";" + c1 + ";" + c2 + ";" + c3 + ";" + c4 + ";;," );
 
 }
 
-/*
-sw.WriteLine( (vertex_count-1) + ";" + c1 + ";" + c2 + ";" + c3 + ";" + c4 + ";;;" );
-sw.WriteLine("} // закрыли MeshVertexColors");
-*/
+// sw.WriteLine( (vertex_count-1) + ";" + c1 + ";" + c2 + ";" + c3 + ";" + c4 + ";;;" );
+// sw.WriteLine("} // закрыли MeshVertexColors");
+
 
 //???????????????????????????????????????????????????????????????????????????????????????
 //???????????????????????????????????????????????????????????????????????????????????????
@@ -494,8 +442,8 @@ uvst_list.Clear();
 norm_list.Clear();
 face_list.Clear();
 
-//vertex_PNT_List.Clear();
-//vertex_PWCNT_List.Clear();
+vertex_PNT_List.Clear();
+vertex_PWCNT_List.Clear();
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -533,13 +481,11 @@ public class Node // XFile frame
     }
 }
 
-/*
-
 //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
-public class Mesh 
+/*public class Mesh 
 {
 		public string fileTexture; 
 		public Vertex[] MeshVertex; 
@@ -547,7 +493,7 @@ public class Mesh
 		public int[] MeshFace; 
 		public int[] MeshFaceNormals; 
 		public float[,] TextCoords; 
-}
+}*/
 
 //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
@@ -555,7 +501,7 @@ public class Mesh
 	{
 		public Vector3 Position;	//	x y z
 		public Vector3 Normal;		//	n1 n2 n3
-		public Vector2 ST;			//	u v
+		public Vector2 ST;			  //	u v
 
 		public VertexTypePNT(Vector3 position, Vector3 normal, Vector2 uv)
 		{
@@ -569,11 +515,11 @@ public class Mesh
 
 	class VertexTypePWCNT
 	{
-		public Vector3 position;		//	x y z
-		public Vector4 weight;
-		public Vector4 color;			//	RGBA
-		public Vector3 normal;			//	n1 n2 n3
-		public Vector2 textCoord;	//	u v
+		public Vector3 position;    //  x y z
+		public Vector4 weight;      //  ... 
+		public Vector4 color;       //  RGBA
+		public Vector3 normal;      //  n1 n2 n3
+		public Vector2 textCoord;   //  u v
 
 		public VertexTypePWCNT(Vector3 position, Vector4 weight, Vector4 color, Vector3 normal, Vector2 uv )
 		{
@@ -586,4 +532,3 @@ public class Mesh
 	}
 
 //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-*/
